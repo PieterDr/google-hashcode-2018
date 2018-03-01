@@ -1,9 +1,6 @@
 package main;
 
-import main.exercise.Car;
-import main.exercise.Grid;
-import main.exercise.InputConverter;
-import main.exercise.Ride;
+import main.exercise.*;
 
 import java.util.List;
 
@@ -16,7 +13,7 @@ public class Main {
         List<Car> cars = InputConverter.getCars(header);
         List<Ride> rides = InputConverter.getRides(input.subList(1, input.size()));
 
-
-        new Writer("output/a.out").write(input);
+        List<String> output = Solver.solve(grid, cars, rides);
+        new Writer("output/a.out").write(output);
     }
 }
