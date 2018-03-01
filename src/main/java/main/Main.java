@@ -7,7 +7,7 @@ import java.util.List;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        List<String> input = new Reader("example.in").readLines();
-        new Writer("output/example.out").write(new Example(input).solve());
+        List<String> input = new Reader("a_example.in").readLines();
+        new Writer("output/a.out").write(new Example(input).solve());
     }
 }
