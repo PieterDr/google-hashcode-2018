@@ -15,4 +15,8 @@ public class Ride {
         this.startTime = startTime;
         this.endTime = endTime;
     }
+
+    public int getDuration() {
+        return start.calculateDistanceTo(end);
+    }
 }

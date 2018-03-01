@@ -11,7 +11,7 @@ public class InputConverter {
 
     public static Grid getGrid(String header) {
         List<Integer> headerNumbers = mapToInts(header);
-        return new Grid(headerNumbers.get(0), headerNumbers.get(1));
+        return new Grid(headerNumbers.get(0), headerNumbers.get(1), headerNumbers.get(5));
     }
 
     private static List<Integer> mapToInts(String header) {
