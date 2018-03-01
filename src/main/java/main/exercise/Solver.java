@@ -27,10 +27,10 @@ public class Solver {
         Ride result = rides.get(0);
         for (Ride ride : rides) {
             int distance = ride.start.calculateDistanceTo(coordinate);
-            minDistance = distance;
             if (distance < minDistance) {
                 result = ride;
             }
+            minDistance = distance;
         }
         return result;
     }
