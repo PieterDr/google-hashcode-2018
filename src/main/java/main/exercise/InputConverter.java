@@ -30,14 +30,20 @@ public class InputConverter {
     }
 
     public static List<Ride> getRides(List<String> rides) {
-        return rides.stream()
+        List<List<Integer>> rideList = rides.stream()
                 .map(InputConverter::mapToInts)
-                .map(ride -> new Ride(
-                        new Coordinate(ride.get(0), ride.get(1)),
-                        new Coordinate(ride.get(2), ride.get(3)),
-                        ride.get(4),
-                        ride.get(5)
-                ))
                 .collect(toList());
+        List<Ride> result = new ArrayList<>();
+        int nr = 0;
+        for (List<Integer> ride: rideList) {
+            result.add(new Ride(
+                    nr,
+                    new Coordinate(ride.get(0), ride.get(1)),
+                    new Coordinate(ride.get(2), ride.get(3)),
+                    ride.get(4),
+                    ride.get(5)));
+            nr++;
+        }
+        return result;
     }
 }
