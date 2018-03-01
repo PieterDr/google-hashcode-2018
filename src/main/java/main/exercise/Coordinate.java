@@ -9,4 +9,8 @@ public class Coordinate {
         this.row = row;
         this.column = column;
     }
+
+    public int calculateDistanceTo(Coordinate other) {
+        return Math.abs(row - other.row) + Math.abs(column - other.column);
+    }
 }
