@@ -33,17 +33,24 @@ public class Util {
         return cars.stream().map(Car::toString).collect(toList());
     }
 
-    public static Ride findClosestAchievableRide(Car car, List<Ride> rides, Coordinate coordinate, Grid grid) {
+    public static Ride findClosestAchievableRide(Car car, List<Ride> rides, Grid grid) {
         List<Ride> achievableRides = rides.stream()
                 .filter(ride -> isAchievableBy(ride, car, grid))
                 .collect(toList());
-        int minDistance = Integer.MAX_VALUE;
-        Ride result = rides.get(0);
+        int minCost = Integer.MAX_VALUE;
+        Ride result = achievableRides.isEmpty() ? rides.get(0) : achievableRides.get(0);
         for (Ride ride : achievableRides) {
-            int distance = ride.start.calculateDistanceTo(coordinate);
-            if (distance < minDistance) {
+            int waitTime = ride.startTime - car.getStepsUsed();
+            int cost = ride.start.calculateDistanceTo(car.getLastCoordinate()) + ride.getDuration() + waitTime;
+            boolean canGetBonus = ride.canGetBonusWith(car);
+            if (result.canGetBonusWith(car)) {
+                if (cost < minCost && canGetBonus) {
+                    result = ride;
+                    minCost = cost;
+                }
+            } else if (canGetBonus) {
                 result = ride;
-                minDistance = distance;
+                minCost = cost;
             }
         }
         return result;
