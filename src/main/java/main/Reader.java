@@ -13,7 +13,7 @@ public class Reader {
 
     private final URI resource;
 
-    public Reader(String resource) throws URISyntaxException {
+    Reader(String resource) throws URISyntaxException {
         this.resource = getClass().getClassLoader().getResource(resource).toURI();
     }
 
