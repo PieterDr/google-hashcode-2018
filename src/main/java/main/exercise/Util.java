@@ -33,24 +33,30 @@ public class Util {
         return cars.stream().map(Car::toString).collect(toList());
     }
 
-    public static Ride findClosestAchievableRide(Car car, List<Ride> rides, Grid grid) {
+    public static Ride findClosestRide(List<Ride> rides, Coordinate coordinate) {
+        int minDistance = Integer.MAX_VALUE;
+        Ride result = rides.get(0);
+        for (Ride ride : rides) {
+            int distance = ride.start.calculateDistanceTo(coordinate);
+            if (distance < minDistance) {
+                result = ride;
+                minDistance = distance;
+            }
+        }
+        return result;
+    }
+
+    public static Ride findClosestAchievableRide(Car car, List<Ride> rides, Coordinate coordinate, Grid grid) {
         List<Ride> achievableRides = rides.stream()
                 .filter(ride -> isAchievableBy(ride, car, grid))
                 .collect(toList());
-        int minCost = Integer.MAX_VALUE;
-        Ride result = achievableRides.isEmpty() ? rides.get(0) : achievableRides.get(0);
+        int minDistance = Integer.MAX_VALUE;
+        Ride result = rides.get(0);
         for (Ride ride : achievableRides) {
-            int waitTime = ride.startTime - car.getStepsUsed();
-            int cost = ride.start.calculateDistanceTo(car.getLastCoordinate()) + ride.getDuration() + waitTime;
-            boolean canGetBonus = ride.canGetBonusWith(car);
-            if (result.canGetBonusWith(car)) {
-                if (cost < minCost && canGetBonus) {
-                    result = ride;
-                    minCost = cost;
-                }
-            } else if (canGetBonus) {
+            int distance = ride.start.calculateDistanceTo(coordinate);
+            if (distance < minDistance) {
                 result = ride;
-                minCost = cost;
+                minDistance = distance;
             }
         }
         return result;

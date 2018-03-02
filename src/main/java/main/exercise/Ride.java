@@ -19,8 +19,4 @@ public class Ride {
     public int getDuration() {
         return start.calculateDistanceTo(end);
     }
-
-    public boolean canGetBonusWith(Car car) {
-        return startTime > car.getLastCoordinate().calculateDistanceTo(start) + car.getStepsUsed();
-    }
 }

@@ -19,7 +19,7 @@ public class Solver {
 
     private static void assignRides(Car car, List<Ride> rides, int numberOfRides) {
         while (car.rides.size() < numberOfRides && !rides.isEmpty()) {
-            Ride closestRide = Util.findClosestAchievableRide(car, rides, GRID);
+            Ride closestRide = Util.findClosestAchievableRide(car, rides, car.getLastCoordinate(), GRID);
             Util.assignAndRemoveFromInput(car, rides, closestRide);
         }
     }
